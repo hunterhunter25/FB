@@ -1,0 +1,8 @@
+{
+  "status": "authorized_access_only",
+  "firewall_level": "high",
+  "bot_protection": true,
+  "redirect_unauthorized": "https://www.google.com",
+  "allowed_methods": ["GET"],
+  "environment": "production"
+}
